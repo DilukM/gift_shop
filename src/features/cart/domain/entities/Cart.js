@@ -80,13 +80,23 @@ export class Cart {
    * @param {number} quantity Quantity to add
    */
   addItem(product, quantity = 1) {
+    console.log("Cart.addItem called with:", { product, quantity });
     const existingItem = this.items.find((item) => item.id === product.id);
+    console.log("Existing item found:", existingItem);
 
     if (existingItem) {
+      console.log("Increasing quantity for existing item");
       existingItem.increaseQuantity(quantity);
+      console.log("New quantity:", existingItem.quantity);
     } else {
-      this.items.push(new CartItem({ product, quantity }));
+      console.log("Adding new item to cart");
+      const newItem = new CartItem({ product, quantity });
+      console.log("New cart item:", newItem);
+      this.items.push(newItem);
     }
+    
+    console.log("Total items in cart:", this.items.length);
+    console.log("Cart items:", this.items);
   }
 
   /**

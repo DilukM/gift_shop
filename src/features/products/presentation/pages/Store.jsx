@@ -9,6 +9,7 @@ import {
   Star,
   ShoppingBag,
   Heart,
+  Check,
 } from "lucide-react";
 import { useCart } from "../../../../shared/context/CartContext";
 import productsData from "../../data/datasources/products.json";
@@ -17,6 +18,7 @@ import { Link } from "react-router-dom";
 const Store = () => {
   const { category } = useParams();
   const { addToCart } = useCart();
+  const [addedItems, setAddedItems] = useState(new Set());
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -106,8 +108,19 @@ const Store = () => {
     }
   }, [category]);
 
-  const handleAddToCart = (product) => {
-    addToCart(product);
+  const handleAddToCart = async (product) => {
+    const success = await addToCart(product);
+    if (success) {
+      setAddedItems(prev => new Set([...prev, product.id]));
+      // Remove the success indicator after 2 seconds
+      setTimeout(() => {
+        setAddedItems(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(product.id);
+          return newSet;
+        });
+      }, 2000);
+    }
   };
 
   const getProductImage = (product) => {
@@ -390,9 +403,17 @@ const Store = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => handleAddToCart(product)}
-                        className="bg-primary-600 hover:bg-primary-700 text-white p-3 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg"
+                        className={`${
+                          addedItems.has(product.id)
+                            ? "bg-green-600 hover:bg-green-700"
+                            : "bg-primary-600 hover:bg-primary-700"
+                        } text-white p-3 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg`}
                       >
-                        <ShoppingBag className="w-5 h-5" />
+                        {addedItems.has(product.id) ? (
+                          <Check className="w-5 h-5" />
+                        ) : (
+                          <ShoppingBag className="w-5 h-5" />
+                        )}
                       </motion.button>
                     </div>
                   </div>

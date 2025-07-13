@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect } from "react";
+import React, { createContext, useContext, useReducer, useEffect, useState } from "react";
 import { CartService } from "../../features/cart/application/services/CartService.js";
 
 const CartContext = createContext();
@@ -51,7 +51,7 @@ const initialState = {
  */
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
-  const cartService = new CartService();
+  const [cartService] = useState(() => new CartService());
 
   // Load cart on mount
   useEffect(() => {
@@ -60,24 +60,29 @@ export const CartProvider = ({ children }) => {
 
   // Set up cart change listener
   useEffect(() => {
-    const handleCartChange = () => {
+    const handleCartChange = (event) => {
+      console.log("Cart change event received:", event);
       loadCart();
     };
 
+    console.log("Setting up cart change listener");
     cartService.addCartChangeListener(handleCartChange);
 
     return () => {
+      console.log("Removing cart change listener");
       cartService.removeCartChangeListener(handleCartChange);
     };
-  }, []);
+  }, [cartService]);
 
   /**
    * Load cart from service
    */
   const loadCart = async () => {
     try {
+      console.log("Loading cart...");
       dispatch({ type: "SET_LOADING", payload: true });
       const result = await cartService.getCart();
+      console.log("Cart loaded from service:", result);
       dispatch({
         type: "SET_CART",
         payload: {
@@ -85,6 +90,7 @@ export const CartProvider = ({ children }) => {
           summary: result.summary,
         },
       });
+      console.log("Cart state updated");
     } catch (error) {
       console.error("Error loading cart:", error);
       dispatch({ type: "SET_ERROR", payload: "Failed to load cart" });
@@ -98,14 +104,18 @@ export const CartProvider = ({ children }) => {
    */
   const addToCart = async (product, quantity = 1) => {
     try {
+      console.log("CartContext.addToCart called with:", { product, quantity });
       dispatch({ type: "CLEAR_ERROR" });
       const result = await cartService.addItem(product, quantity);
+      console.log("CartService.addItem result:", result);
 
       if (!result.success) {
+        console.error("Add to cart failed:", result.error);
         dispatch({ type: "SET_ERROR", payload: result.error });
         return false;
       }
 
+      console.log("Item added successfully to cart");
       return true;
     } catch (error) {
       console.error("Error adding to cart:", error);

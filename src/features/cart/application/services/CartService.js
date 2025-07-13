@@ -32,9 +32,12 @@ export class CartService {
    */
   async addItem(product, quantity = 1) {
     try {
+      console.log("CartService.addItem called with:", { product, quantity });
       const result = await this.addItemToCartUseCase.execute(product, quantity);
+      console.log("AddItemToCartUseCase result:", result);
 
       if (result.success) {
+        console.log("Notifying cart change...");
         this.notifyCartChange("item_added", {
           product,
           quantity,

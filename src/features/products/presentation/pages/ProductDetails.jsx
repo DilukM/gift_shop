@@ -11,6 +11,7 @@ import {
   Truck,
   Shield,
   RotateCcw,
+  Check,
 } from "lucide-react";
 import { useCart } from "../../../../shared/context/CartContext";
 import productsData from "../../data/datasources/products.json";
@@ -21,6 +22,7 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [isAdded, setIsAdded] = useState(false);
 
   useEffect(() => {
     const foundProduct = productsData.products.find((p) => p.id === id);
@@ -55,9 +57,22 @@ const ProductDetails = () => {
     );
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
+    let success = true;
     for (let i = 0; i < quantity; i++) {
-      addToCart(product);
+      const result = await addToCart(product);
+      if (!result) {
+        success = false;
+        break;
+      }
+    }
+    
+    if (success) {
+      setIsAdded(true);
+      // Remove the success indicator after 3 seconds
+      setTimeout(() => {
+        setIsAdded(false);
+      }, 3000);
     }
   };
 
@@ -213,10 +228,23 @@ const ProductDetails = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleAddToCart}
-                    className="flex-1 btn-primary group"
+                    className={`flex-1 group ${
+                      isAdded
+                        ? "bg-green-600 hover:bg-green-700"
+                        : "bg-primary-600 hover:bg-primary-700"
+                    } text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center`}
                   >
-                    <ShoppingBag className="w-5 h-5 mr-2" />
-                    Add to Cart
+                    {isAdded ? (
+                      <>
+                        <Check className="w-5 h-5 mr-2" />
+                        Added to Cart!
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingBag className="w-5 h-5 mr-2" />
+                        Add to Cart
+                      </>
+                    )}
                   </motion.button>
 
                   <motion.button

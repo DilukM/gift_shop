@@ -1,17 +1,30 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Star, ShoppingBag, Heart } from "lucide-react";
+import { ArrowRight, Star, ShoppingBag, Heart, Check } from "lucide-react";
 import { useCart } from "../../../../shared/context/CartContext";
 import productsData from "../../data/datasources/products.json";
+import { useState } from "react";
 
 const PopularProducts = () => {
   const { addToCart } = useCart();
+  const [addedItems, setAddedItems] = useState(new Set());
   const popularProducts = productsData.products
     .filter((product) => product.isPopular)
     .slice(0, 6);
 
-  const handleAddToCart = (product) => {
-    addToCart(product);
+  const handleAddToCart = async (product) => {
+    const success = await addToCart(product);
+    if (success) {
+      setAddedItems(prev => new Set([...prev, product.id]));
+      // Remove the success indicator after 2 seconds
+      setTimeout(() => {
+        setAddedItems(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(product.id);
+          return newSet;
+        });
+      }, 2000);
+    }
   };
 
   const containerVariants = {
@@ -150,9 +163,17 @@ const PopularProducts = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleAddToCart(product)}
-                    className="bg-primary-600 hover:bg-primary-700 text-white p-3 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg"
+                    className={`${
+                      addedItems.has(product.id)
+                        ? "bg-green-600 hover:bg-green-700"
+                        : "bg-primary-600 hover:bg-primary-700"
+                    } text-white p-3 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg`}
                   >
-                    <ShoppingBag className="w-5 h-5" />
+                    {addedItems.has(product.id) ? (
+                      <Check className="w-5 h-5" />
+                    ) : (
+                      <ShoppingBag className="w-5 h-5" />
+                    )}
                   </motion.button>
                 </div>
               </div>
@@ -172,7 +193,7 @@ const PopularProducts = () => {
             <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="btn-primary group"
+              className="btn-primary group inline-flex items-center justify-center"
             >
               View All Products
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
