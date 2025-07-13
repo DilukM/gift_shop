@@ -71,17 +71,17 @@ export class CartRepository {
       console.log("CartRepository.addItem called with:", { product, quantity });
       const cart = await this.loadCart();
       console.log("Current cart before adding:", cart);
-      
+
       cart.addItem(product, quantity);
       console.log("Cart after adding item:", cart);
-      
+
       const saveResult = await this.saveCart(cart);
       console.log("Save cart result:", saveResult);
-      
+
       // Verify the cart was saved
       const savedData = localStorage.getItem(this.storageKey);
       console.log("Data in localStorage:", savedData);
-      
+
       return cart;
     } catch (error) {
       console.error("Error adding item to cart:", error);

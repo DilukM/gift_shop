@@ -94,7 +94,7 @@ export class Cart {
       console.log("New cart item:", newItem);
       this.items.push(newItem);
     }
-    
+
     console.log("Total items in cart:", this.items.length);
     console.log("Cart items:", this.items);
   }

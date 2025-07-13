@@ -66,7 +66,7 @@ const ProductDetails = () => {
         break;
       }
     }
-    
+
     if (success) {
       setIsAdded(true);
       // Remove the success indicator after 3 seconds

@@ -15,10 +15,10 @@ const PopularProducts = () => {
   const handleAddToCart = async (product) => {
     const success = await addToCart(product);
     if (success) {
-      setAddedItems(prev => new Set([...prev, product.id]));
+      setAddedItems((prev) => new Set([...prev, product.id]));
       // Remove the success indicator after 2 seconds
       setTimeout(() => {
-        setAddedItems(prev => {
+        setAddedItems((prev) => {
           const newSet = new Set(prev);
           newSet.delete(product.id);
           return newSet;
