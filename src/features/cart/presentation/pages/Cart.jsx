@@ -64,7 +64,7 @@ const Cart = () => {
                 className="btn-primary group"
               >
                 Continue Shopping
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform inline-flex items-center justify-center" />
               </motion.button>
             </Link>
           </motion.div>
