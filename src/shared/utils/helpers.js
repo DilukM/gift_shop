@@ -8,9 +8,9 @@
  * @param {string} currency Currency code
  * @returns {string} Formatted price
  */
-export const formatPrice = (price, currency = 'USD') => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
+export const formatPrice = (price, currency = "USD") => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
     currency: currency,
   }).format(price);
 };
@@ -22,10 +22,10 @@ export const formatPrice = (price, currency = 'USD') => {
  */
 export const formatDate = (date) => {
   const dateObj = date instanceof Date ? date : new Date(date);
-  return dateObj.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+  return dateObj.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 };
 
@@ -48,7 +48,7 @@ export const calculateDiscount = (originalPrice, salePrice) => {
  */
 export const truncateText = (text, maxLength = 100) => {
   if (!text || text.length <= maxLength) return text;
-  return text.substring(0, maxLength).trim() + '...';
+  return text.substring(0, maxLength).trim() + "...";
 };
 
 /**
@@ -59,8 +59,8 @@ export const truncateText = (text, maxLength = 100) => {
 export const generateSlug = (text) => {
   return text
     .toLowerCase()
-    .replace(/[^\w ]+/g, '')
-    .replace(/ +/g, '-');
+    .replace(/[^\w ]+/g, "")
+    .replace(/ +/g, "-");
 };
 
 /**
@@ -112,7 +112,7 @@ export const validateEmail = (email) => {
  */
 export const validatePhone = (phone) => {
   const phoneRegex = /^\+?[\d\s\-\(\)]+$/;
-  return phoneRegex.test(phone) && phone.replace(/\D/g, '').length >= 10;
+  return phoneRegex.test(phone) && phone.replace(/\D/g, "").length >= 10;
 };
 
 /**
@@ -121,7 +121,10 @@ export const validatePhone = (phone) => {
  * @param {string} fallback Fallback image URL
  * @returns {string} Image URL or fallback
  */
-export const getImageUrl = (imageUrl, fallback = '/api/placeholder/400/400') => {
+export const getImageUrl = (
+  imageUrl,
+  fallback = "/api/placeholder/400/400"
+) => {
   return imageUrl || fallback;
 };
 
@@ -132,7 +135,7 @@ export const getImageUrl = (imageUrl, fallback = '/api/placeholder/400/400') => 
 export const scrollToElement = (elementId) => {
   const element = document.getElementById(elementId);
   if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
+    element.scrollIntoView({ behavior: "smooth" });
   }
 };
 

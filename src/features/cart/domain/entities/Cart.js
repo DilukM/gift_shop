@@ -58,7 +58,7 @@ export class CartItem {
       id: this.id,
       product: this.product,
       quantity: this.quantity,
-      totalPrice: this.getTotalPrice()
+      totalPrice: this.getTotalPrice(),
     };
   }
 }
@@ -69,7 +69,7 @@ export class CartItem {
  */
 export class Cart {
   constructor(items = []) {
-    this.items = items.map(item => 
+    this.items = items.map((item) =>
       item instanceof CartItem ? item : new CartItem(item)
     );
   }
@@ -80,8 +80,8 @@ export class Cart {
    * @param {number} quantity Quantity to add
    */
   addItem(product, quantity = 1) {
-    const existingItem = this.items.find(item => item.id === product.id);
-    
+    const existingItem = this.items.find((item) => item.id === product.id);
+
     if (existingItem) {
       existingItem.increaseQuantity(quantity);
     } else {
@@ -94,7 +94,7 @@ export class Cart {
    * @param {string} productId Product ID to remove
    */
   removeItem(productId) {
-    this.items = this.items.filter(item => item.id !== productId);
+    this.items = this.items.filter((item) => item.id !== productId);
   }
 
   /**
@@ -103,7 +103,7 @@ export class Cart {
    * @param {number} quantity New quantity
    */
   updateQuantity(productId, quantity) {
-    const item = this.items.find(item => item.id === productId);
+    const item = this.items.find((item) => item.id === productId);
     if (item) {
       if (quantity <= 0) {
         this.removeItem(productId);
@@ -162,7 +162,7 @@ export class Cart {
       totalPrice: this.getTotalPrice(),
       formattedTotalPrice: this.getFormattedTotalPrice(),
       isEmpty: this.isEmpty(),
-      itemCount: this.items.length
+      itemCount: this.items.length,
     };
   }
 
@@ -172,8 +172,8 @@ export class Cart {
    */
   toJSON() {
     return {
-      items: this.items.map(item => item.toJSON()),
-      summary: this.getSummary()
+      items: this.items.map((item) => item.toJSON()),
+      summary: this.getSummary(),
     };
   }
 }

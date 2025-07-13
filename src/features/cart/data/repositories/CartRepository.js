@@ -1,4 +1,4 @@
-import { Cart, CartItem } from '../../domain/entities/Cart.js';
+import { Cart, CartItem } from "../../domain/entities/Cart.js";
 
 /**
  * Cart Repository
@@ -6,7 +6,7 @@ import { Cart, CartItem } from '../../domain/entities/Cart.js';
  */
 export class CartRepository {
   constructor() {
-    this.storageKey = 'giftbloom_cart';
+    this.storageKey = "giftbloom_cart";
   }
 
   /**
@@ -22,10 +22,10 @@ export class CartRepository {
 
       const parsedData = JSON.parse(cartData);
       const cartItems = parsedData.items || [];
-      
+
       return new Cart(cartItems);
     } catch (error) {
-      console.error('Error loading cart from storage:', error);
+      console.error("Error loading cart from storage:", error);
       return new Cart();
     }
   }
@@ -41,7 +41,7 @@ export class CartRepository {
       localStorage.setItem(this.storageKey, cartData);
       return true;
     } catch (error) {
-      console.error('Error saving cart to storage:', error);
+      console.error("Error saving cart to storage:", error);
       return false;
     }
   }
@@ -55,7 +55,7 @@ export class CartRepository {
       localStorage.removeItem(this.storageKey);
       return true;
     } catch (error) {
-      console.error('Error clearing cart from storage:', error);
+      console.error("Error clearing cart from storage:", error);
       return false;
     }
   }
@@ -73,8 +73,8 @@ export class CartRepository {
       await this.saveCart(cart);
       return cart;
     } catch (error) {
-      console.error('Error adding item to cart:', error);
-      throw new Error('Failed to add item to cart');
+      console.error("Error adding item to cart:", error);
+      throw new Error("Failed to add item to cart");
     }
   }
 
@@ -90,8 +90,8 @@ export class CartRepository {
       await this.saveCart(cart);
       return cart;
     } catch (error) {
-      console.error('Error removing item from cart:', error);
-      throw new Error('Failed to remove item from cart');
+      console.error("Error removing item from cart:", error);
+      throw new Error("Failed to remove item from cart");
     }
   }
 
@@ -108,8 +108,8 @@ export class CartRepository {
       await this.saveCart(cart);
       return cart;
     } catch (error) {
-      console.error('Error updating item quantity:', error);
-      throw new Error('Failed to update item quantity');
+      console.error("Error updating item quantity:", error);
+      throw new Error("Failed to update item quantity");
     }
   }
 
@@ -122,8 +122,8 @@ export class CartRepository {
       const cart = await this.loadCart();
       return cart.getSummary();
     } catch (error) {
-      console.error('Error getting cart summary:', error);
-      throw new Error('Failed to get cart summary');
+      console.error("Error getting cart summary:", error);
+      throw new Error("Failed to get cart summary");
     }
   }
 
@@ -135,9 +135,9 @@ export class CartRepository {
   async isProductInCart(productId) {
     try {
       const cart = await this.loadCart();
-      return cart.items.some(item => item.id === productId);
+      return cart.items.some((item) => item.id === productId);
     } catch (error) {
-      console.error('Error checking if product is in cart:', error);
+      console.error("Error checking if product is in cart:", error);
       return false;
     }
   }
@@ -150,10 +150,10 @@ export class CartRepository {
   async getItemQuantity(productId) {
     try {
       const cart = await this.loadCart();
-      const item = cart.items.find(item => item.id === productId);
+      const item = cart.items.find((item) => item.id === productId);
       return item ? item.quantity : 0;
     } catch (error) {
-      console.error('Error getting item quantity:', error);
+      console.error("Error getting item quantity:", error);
       return 0;
     }
   }

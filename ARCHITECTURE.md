@@ -39,21 +39,25 @@ src/
 ## 🏗️ Architecture Layers
 
 ### 1. Domain Layer (Business Logic)
+
 - **Entities**: Core business objects (Product, Cart, CartItem)
 - **Use Cases**: Business operations with clear single responsibilities
   - Products: GetAllProducts, SearchProducts, GetFeaturedProducts, etc.
   - Cart: AddItemToCart, RemoveFromCart, ValidateCart, etc.
 
 ### 2. Application Layer (Orchestration)
+
 - **Services**: Coordinate multiple use cases and manage application flow
   - `ProductsService`: Product operations with pagination, filtering
   - `CartService`: Cart operations with validation and checkout
 
 ### 3. Data Layer (Persistence)
+
 - **Repositories**: Interface between domain and data sources
 - **Data Sources**: Actual data access (JSON files, localStorage)
 
 ### 4. Presentation Layer (UI)
+
 - **Pages**: Route-level components
 - **Components**: Reusable UI elements
 - **Context**: React state management
@@ -61,21 +65,25 @@ src/
 ## 🔧 Key Improvements
 
 ### 1. Separation of Concerns
+
 - Business logic isolated in domain layer
 - UI concerns separated from data access
 - Clear interfaces between layers
 
 ### 2. Dependency Inversion
+
 - Domain layer doesn't depend on external frameworks
 - Data layer implements domain interfaces
 - Clean dependency flow: Presentation → Application → Domain ← Data
 
 ### 3. Single Responsibility
+
 - Each class/module has one reason to change
 - Use cases handle specific business operations
 - Services coordinate without business logic
 
 ### 4. Testability
+
 - Business logic can be tested without UI
 - Dependencies can be easily mocked
 - Clear boundaries enable unit testing
@@ -83,21 +91,24 @@ src/
 ## 🚀 Features Implemented
 
 ### Product Management
+
 - **Entity**: Product with business methods (getDiscountPercentage, matchesSearch)
-- **Use Cases**: 
+- **Use Cases**:
   - GetAllProductsUseCase (with sorting logic)
   - SearchProductsUseCase (with filtering)
   - GetFeaturedProductsUseCase (limited results)
 - **Service**: ProductsService (pagination, related products)
 
 ### Shopping Cart
+
 - **Entities**: Cart and CartItem with business calculations
-- **Use Cases**: 
+- **Use Cases**:
   - AddItemToCartUseCase (with validation)
   - ValidateCartUseCase (business rules)
 - **Service**: CartService (checkout processing, tax calculation)
 
 ### Data Management
+
 - **Repository Pattern**: Clean interface for data access
 - **Local Storage**: Persistent cart state
 - **JSON Data Source**: Product catalog with mock data
@@ -126,6 +137,7 @@ src/
 ## 🎯 Next Steps
 
 The application is now ready for:
+
 - **Unit Testing**: Each layer can be tested independently
 - **Feature Extension**: New features can be added following the same pattern
 - **Team Development**: Clear boundaries enable multiple developers

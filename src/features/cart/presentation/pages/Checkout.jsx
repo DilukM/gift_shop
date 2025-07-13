@@ -231,7 +231,10 @@ const Checkout = () => {
               {/* Cart Items */}
               <div className="space-y-4 mb-6">
                 {cart?.items.map((item) => (
-                  <div key={item.product.id} className="flex items-center space-x-4">
+                  <div
+                    key={item.product.id}
+                    className="flex items-center space-x-4"
+                  >
                     <img
                       src={getProductImage(item.product)}
                       alt={item.product.name}

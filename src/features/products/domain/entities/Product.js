@@ -17,7 +17,7 @@ export class Product {
     rating = 0,
     reviews = 0,
     isNew = false,
-    isBestSeller = false
+    isBestSeller = false,
   }) {
     this.id = id;
     this.name = name;
@@ -43,7 +43,9 @@ export class Product {
     if (!this.originalPrice || this.originalPrice <= this.price) {
       return 0;
     }
-    return Math.round(((this.originalPrice - this.price) / this.originalPrice) * 100);
+    return Math.round(
+      ((this.originalPrice - this.price) / this.originalPrice) * 100
+    );
   }
 
   /**
@@ -77,13 +79,13 @@ export class Product {
    */
   matchesSearch(searchTerm) {
     if (!searchTerm) return true;
-    
+
     const term = searchTerm.toLowerCase();
     return (
       this.name.toLowerCase().includes(term) ||
       this.description.toLowerCase().includes(term) ||
       this.category.toLowerCase().includes(term) ||
-      this.features.some(feature => feature.toLowerCase().includes(term))
+      this.features.some((feature) => feature.toLowerCase().includes(term))
     );
   }
 

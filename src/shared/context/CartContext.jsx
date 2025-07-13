@@ -1,39 +1,39 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import { CartService } from '../../features/cart/application/services/CartService.js';
+import React, { createContext, useContext, useReducer, useEffect } from "react";
+import { CartService } from "../../features/cart/application/services/CartService.js";
 
 const CartContext = createContext();
 
 // Cart reducer for state management
 const cartReducer = (state, action) => {
   switch (action.type) {
-    case 'SET_CART':
+    case "SET_CART":
       return {
         ...state,
         cart: action.payload.cart,
         summary: action.payload.summary,
         loading: false,
-        error: null
+        error: null,
       };
-    
-    case 'SET_LOADING':
+
+    case "SET_LOADING":
       return {
         ...state,
-        loading: action.payload
+        loading: action.payload,
       };
-    
-    case 'SET_ERROR':
+
+    case "SET_ERROR":
       return {
         ...state,
         error: action.payload,
-        loading: false
+        loading: false,
       };
-    
-    case 'CLEAR_ERROR':
+
+    case "CLEAR_ERROR":
       return {
         ...state,
-        error: null
+        error: null,
       };
-    
+
     default:
       return state;
   }
@@ -43,7 +43,7 @@ const initialState = {
   cart: null,
   summary: null,
   loading: true,
-  error: null
+  error: null,
 };
 
 /**
@@ -76,18 +76,18 @@ export const CartProvider = ({ children }) => {
    */
   const loadCart = async () => {
     try {
-      dispatch({ type: 'SET_LOADING', payload: true });
+      dispatch({ type: "SET_LOADING", payload: true });
       const result = await cartService.getCart();
-      dispatch({ 
-        type: 'SET_CART', 
-        payload: { 
-          cart: result.cart, 
-          summary: result.summary 
-        } 
+      dispatch({
+        type: "SET_CART",
+        payload: {
+          cart: result.cart,
+          summary: result.summary,
+        },
       });
     } catch (error) {
-      console.error('Error loading cart:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Failed to load cart' });
+      console.error("Error loading cart:", error);
+      dispatch({ type: "SET_ERROR", payload: "Failed to load cart" });
     }
   };
 
@@ -98,18 +98,18 @@ export const CartProvider = ({ children }) => {
    */
   const addToCart = async (product, quantity = 1) => {
     try {
-      dispatch({ type: 'CLEAR_ERROR' });
+      dispatch({ type: "CLEAR_ERROR" });
       const result = await cartService.addItem(product, quantity);
-      
+
       if (!result.success) {
-        dispatch({ type: 'SET_ERROR', payload: result.error });
+        dispatch({ type: "SET_ERROR", payload: result.error });
         return false;
       }
-      
+
       return true;
     } catch (error) {
-      console.error('Error adding to cart:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Failed to add item to cart' });
+      console.error("Error adding to cart:", error);
+      dispatch({ type: "SET_ERROR", payload: "Failed to add item to cart" });
       return false;
     }
   };
@@ -120,18 +120,21 @@ export const CartProvider = ({ children }) => {
    */
   const removeFromCart = async (productId) => {
     try {
-      dispatch({ type: 'CLEAR_ERROR' });
+      dispatch({ type: "CLEAR_ERROR" });
       const result = await cartService.removeItem(productId);
-      
+
       if (!result.success) {
-        dispatch({ type: 'SET_ERROR', payload: result.error });
+        dispatch({ type: "SET_ERROR", payload: result.error });
         return false;
       }
-      
+
       return true;
     } catch (error) {
-      console.error('Error removing from cart:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Failed to remove item from cart' });
+      console.error("Error removing from cart:", error);
+      dispatch({
+        type: "SET_ERROR",
+        payload: "Failed to remove item from cart",
+      });
       return false;
     }
   };
@@ -143,18 +146,18 @@ export const CartProvider = ({ children }) => {
    */
   const updateQuantity = async (productId, quantity) => {
     try {
-      dispatch({ type: 'CLEAR_ERROR' });
+      dispatch({ type: "CLEAR_ERROR" });
       const result = await cartService.updateQuantity(productId, quantity);
-      
+
       if (!result.success) {
-        dispatch({ type: 'SET_ERROR', payload: result.error });
+        dispatch({ type: "SET_ERROR", payload: result.error });
         return false;
       }
-      
+
       return true;
     } catch (error) {
-      console.error('Error updating quantity:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Failed to update quantity' });
+      console.error("Error updating quantity:", error);
+      dispatch({ type: "SET_ERROR", payload: "Failed to update quantity" });
       return false;
     }
   };
@@ -164,18 +167,18 @@ export const CartProvider = ({ children }) => {
    */
   const clearCart = async () => {
     try {
-      dispatch({ type: 'CLEAR_ERROR' });
+      dispatch({ type: "CLEAR_ERROR" });
       const result = await cartService.clearCart();
-      
+
       if (!result.success) {
-        dispatch({ type: 'SET_ERROR', payload: result.error });
+        dispatch({ type: "SET_ERROR", payload: result.error });
         return false;
       }
-      
+
       return true;
     } catch (error) {
-      console.error('Error clearing cart:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Failed to clear cart' });
+      console.error("Error clearing cart:", error);
+      dispatch({ type: "SET_ERROR", payload: "Failed to clear cart" });
       return false;
     }
   };
@@ -186,24 +189,24 @@ export const CartProvider = ({ children }) => {
    */
   const processCheckout = async (checkoutData) => {
     try {
-      dispatch({ type: 'CLEAR_ERROR' });
-      dispatch({ type: 'SET_LOADING', payload: true });
-      
+      dispatch({ type: "CLEAR_ERROR" });
+      dispatch({ type: "SET_LOADING", payload: true });
+
       const result = await cartService.processCheckout(checkoutData);
-      
-      dispatch({ type: 'SET_LOADING', payload: false });
-      
+
+      dispatch({ type: "SET_LOADING", payload: false });
+
       if (!result.success) {
-        dispatch({ type: 'SET_ERROR', payload: result.errors.join(', ') });
+        dispatch({ type: "SET_ERROR", payload: result.errors.join(", ") });
         return { success: false, errors: result.errors };
       }
-      
+
       return result;
     } catch (error) {
-      console.error('Error processing checkout:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Failed to process checkout' });
-      dispatch({ type: 'SET_LOADING', payload: false });
-      return { success: false, errors: ['An unexpected error occurred'] };
+      console.error("Error processing checkout:", error);
+      dispatch({ type: "SET_ERROR", payload: "Failed to process checkout" });
+      dispatch({ type: "SET_LOADING", payload: false });
+      return { success: false, errors: ["An unexpected error occurred"] };
     }
   };
 
@@ -214,8 +217,8 @@ export const CartProvider = ({ children }) => {
     try {
       return await cartService.validateCart();
     } catch (error) {
-      console.error('Error validating cart:', error);
-      return { isValid: false, errors: ['Failed to validate cart'] };
+      console.error("Error validating cart:", error);
+      return { isValid: false, errors: ["Failed to validate cart"] };
     }
   };
 
@@ -225,7 +228,7 @@ export const CartProvider = ({ children }) => {
    */
   const isInCart = (productId) => {
     if (!state.cart) return false;
-    return state.cart.items.some(item => item.id === productId);
+    return state.cart.items.some((item) => item.id === productId);
   };
 
   /**
@@ -234,7 +237,7 @@ export const CartProvider = ({ children }) => {
    */
   const getItemQuantity = (productId) => {
     if (!state.cart) return 0;
-    const item = state.cart.items.find(item => item.id === productId);
+    const item = state.cart.items.find((item) => item.id === productId);
     return item ? item.quantity : 0;
   };
 
@@ -242,7 +245,7 @@ export const CartProvider = ({ children }) => {
    * Clear error state
    */
   const clearError = () => {
-    dispatch({ type: 'CLEAR_ERROR' });
+    dispatch({ type: "CLEAR_ERROR" });
   };
 
   const contextValue = {
@@ -251,7 +254,7 @@ export const CartProvider = ({ children }) => {
     summary: state.summary,
     loading: state.loading,
     error: state.error,
-    
+
     // Actions
     addToCart,
     removeFromCart,
@@ -261,21 +264,19 @@ export const CartProvider = ({ children }) => {
     validateCart,
     loadCart,
     clearError,
-    
+
     // Computed values
     isInCart,
     getItemQuantity,
-    
+
     // Getters
     totalItems: state.summary?.totalItems || 0,
     totalPrice: state.summary?.totalPrice || 0,
-    isEmpty: state.summary?.isEmpty ?? true
+    isEmpty: state.summary?.isEmpty ?? true,
   };
 
   return (
-    <CartContext.Provider value={contextValue}>
-      {children}
-    </CartContext.Provider>
+    <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );
 };
 
@@ -285,7 +286,7 @@ export const CartProvider = ({ children }) => {
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error("useCart must be used within a CartProvider");
   }
   return context;
 };

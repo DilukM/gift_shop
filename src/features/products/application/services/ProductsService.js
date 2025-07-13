@@ -4,8 +4,8 @@ import {
   SearchProductsUseCase,
   GetFeaturedProductsUseCase,
   GetPopularProductsUseCase,
-  GetProductCategoriesUseCase
-} from '../../domain/usecases/ProductUseCases.js';
+  GetProductCategoriesUseCase,
+} from "../../domain/usecases/ProductUseCases.js";
 
 /**
  * Products Service
@@ -103,12 +103,12 @@ export class ProductsService {
           hasNextPage: page < totalPages,
           hasPreviousPage: page > 1,
           startIndex: startIndex + 1,
-          endIndex: Math.min(endIndex, products.length)
+          endIndex: Math.min(endIndex, products.length),
         },
-        metadata: searchResult.metadata
+        metadata: searchResult.metadata,
       };
     } catch (error) {
-      console.error('ProductsService.getProductsForStore error:', error);
+      console.error("ProductsService.getProductsForStore error:", error);
       throw error;
     }
   }
@@ -127,10 +127,10 @@ export class ProductsService {
       }
 
       const allProducts = await this.getAllProducts();
-      
+
       // Get products from same category, excluding current product
       const relatedProducts = allProducts
-        .filter(p => p.id !== productId && p.category === product.category)
+        .filter((p) => p.id !== productId && p.category === product.category)
         .sort((a, b) => b.rating - a.rating)
         .slice(0, limit);
 
@@ -138,15 +138,19 @@ export class ProductsService {
       if (relatedProducts.length < limit) {
         const popularProducts = await this.getPopularProducts(limit * 2);
         const additionalProducts = popularProducts
-          .filter(p => p.id !== productId && !relatedProducts.find(rp => rp.id === p.id))
+          .filter(
+            (p) =>
+              p.id !== productId &&
+              !relatedProducts.find((rp) => rp.id === p.id)
+          )
           .slice(0, limit - relatedProducts.length);
-        
+
         relatedProducts.push(...additionalProducts);
       }
 
       return relatedProducts.slice(0, limit);
     } catch (error) {
-      console.error('ProductsService.getRelatedProducts error:', error);
+      console.error("ProductsService.getRelatedProducts error:", error);
       throw error;
     }
   }
@@ -160,7 +164,7 @@ export class ProductsService {
       const [featured, popular, categories] = await Promise.all([
         this.getFeaturedProducts(6),
         this.getPopularProducts(8),
-        this.getCategories()
+        this.getCategories(),
       ]);
 
       return {
@@ -171,11 +175,11 @@ export class ProductsService {
           hero: featured.slice(0, 1)[0] || null,
           featuredGrid: featured.slice(1, 4),
           popularSection: popular.slice(0, 6),
-          categoryShowcase: categories.slice(0, 3)
-        }
+          categoryShowcase: categories.slice(0, 3),
+        },
       };
     } catch (error) {
-      console.error('ProductsService.getHomepageRecommendations error:', error);
+      console.error("ProductsService.getHomepageRecommendations error:", error);
       throw error;
     }
   }

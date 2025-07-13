@@ -39,8 +39,8 @@ const Hero = () => {
       ))}
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 xl:px-16 2xl:px-24 pt-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 2xl:gap-32 items-center">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -94,7 +94,7 @@ const Hero = () => {
                 <motion.button
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="btn-primary group w-full sm:w-auto"
+                  className="btn-primary group w-full sm:w-auto align-items-center inline-flex items-center justify-center"
                 >
                   Shop Now
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -148,7 +148,7 @@ const Hero = () => {
                 className="relative rounded-3xl overflow-hidden shadow-luxury-lg"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                  src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Graduation celebration with teddy bear and flowers"
                   className="w-full h-[500px] lg:h-[600px] object-cover"
                 />

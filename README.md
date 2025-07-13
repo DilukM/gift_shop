@@ -7,6 +7,7 @@ A modern, luxury e-commerce website specializing in graduation teddy bears and f
 This project follows **Clean Code Architecture** with feature-based organization:
 
 ### 📁 Project Structure
+
 ```
 src/
 ├── features/                    # Feature-based modules
@@ -81,11 +82,13 @@ src/
 ### Installation
 
 1. Install dependencies:
+
    ```bash
    npm install
    ```
 
 2. Start the development server:
+
    ```bash
    npm run dev
    ```
@@ -101,6 +104,7 @@ npm run build
 ## 🧪 Development Guidelines
 
 ### Adding New Features
+
 1. Create feature folder in `src/features/`
 2. Follow the clean architecture layers:
    - `presentation/` - UI components and pages
@@ -110,6 +114,7 @@ npm run build
 3. Export main components in feature's `index.js`
 
 ### Code Organization
+
 - **Entities**: Core business objects (Product, Cart, etc.)
 - **Use Cases**: Business operations (AddToCart, SearchProducts, etc.)
 - **Services**: Application layer coordinating multiple use cases

@@ -1,5 +1,5 @@
-import { Product } from '../../domain/entities/Product.js';
-import productsData from '../datasources/products.json';
+import { Product } from "../../domain/entities/Product.js";
+import productsData from "../datasources/products.json";
 
 /**
  * Products Data Source
@@ -7,7 +7,9 @@ import productsData from '../datasources/products.json';
  */
 export class ProductsDataSource {
   constructor() {
-    this.products = productsData.products.map(productData => new Product(productData));
+    this.products = productsData.products.map(
+      (productData) => new Product(productData)
+    );
     this.categories = productsData.categories || [];
   }
 
@@ -17,7 +19,7 @@ export class ProductsDataSource {
    */
   async getAllProducts() {
     // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100));
     return [...this.products];
   }
 
@@ -27,8 +29,8 @@ export class ProductsDataSource {
    * @returns {Promise<Product|null>} Product or null if not found
    */
   async getProductById(id) {
-    await new Promise(resolve => setTimeout(resolve, 50));
-    return this.products.find(product => product.id === id) || null;
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    return this.products.find((product) => product.id === id) || null;
   }
 
   /**
@@ -37,8 +39,8 @@ export class ProductsDataSource {
    * @returns {Promise<Product[]>} Array of products in category
    */
   async getProductsByCategory(category) {
-    await new Promise(resolve => setTimeout(resolve, 100));
-    return this.products.filter(product => product.category === category);
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    return this.products.filter((product) => product.category === category);
   }
 
   /**
@@ -47,10 +49,10 @@ export class ProductsDataSource {
    * @returns {Promise<Product[]>} Array of matching products
    */
   async searchProducts(searchTerm) {
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100));
     if (!searchTerm) return this.getAllProducts();
-    
-    return this.products.filter(product => product.matchesSearch(searchTerm));
+
+    return this.products.filter((product) => product.matchesSearch(searchTerm));
   }
 
   /**
@@ -58,8 +60,8 @@ export class ProductsDataSource {
    * @returns {Promise<Product[]>} Array of featured products
    */
   async getFeaturedProducts() {
-    await new Promise(resolve => setTimeout(resolve, 100));
-    return this.products.filter(product => product.isFeatured);
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    return this.products.filter((product) => product.isFeatured);
   }
 
   /**
@@ -67,8 +69,8 @@ export class ProductsDataSource {
    * @returns {Promise<Product[]>} Array of popular products
    */
   async getPopularProducts() {
-    await new Promise(resolve => setTimeout(resolve, 100));
-    return this.products.filter(product => product.isPopular);
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    return this.products.filter((product) => product.isPopular);
   }
 
   /**
@@ -82,21 +84,21 @@ export class ProductsDataSource {
    * @returns {Promise<Product[]>} Filtered products
    */
   async getProductsWithFilters(filters = {}) {
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
     let filteredProducts = [...this.products];
 
     // Filter by search term
     if (filters.search) {
-      filteredProducts = filteredProducts.filter(product => 
+      filteredProducts = filteredProducts.filter((product) =>
         product.matchesSearch(filters.search)
       );
     }
 
     // Filter by category
-    if (filters.category && filters.category !== 'all') {
-      filteredProducts = filteredProducts.filter(product => 
-        product.category === filters.category
+    if (filters.category && filters.category !== "all") {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.category === filters.category
       );
     }
 
@@ -104,7 +106,7 @@ export class ProductsDataSource {
     if (filters.minPrice !== undefined || filters.maxPrice !== undefined) {
       const minPrice = filters.minPrice || 0;
       const maxPrice = filters.maxPrice || Infinity;
-      filteredProducts = filteredProducts.filter(product => 
+      filteredProducts = filteredProducts.filter((product) =>
         product.isInPriceRange(minPrice, maxPrice)
       );
     }
@@ -122,7 +124,7 @@ export class ProductsDataSource {
    * @returns {Promise<Object[]>} Array of categories
    */
   async getCategories() {
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
     return [...this.categories];
   }
 
@@ -137,15 +139,15 @@ export class ProductsDataSource {
     const sortedProducts = [...products];
 
     switch (sortBy) {
-      case 'price-low-high':
+      case "price-low-high":
         return sortedProducts.sort((a, b) => a.price - b.price);
-      case 'price-high-low':
+      case "price-high-low":
         return sortedProducts.sort((a, b) => b.price - a.price);
-      case 'name':
+      case "name":
         return sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
-      case 'rating':
+      case "rating":
         return sortedProducts.sort((a, b) => b.rating - a.rating);
-      case 'popular':
+      case "popular":
         return sortedProducts.sort((a, b) => {
           if (a.isPopular && !b.isPopular) return -1;
           if (!a.isPopular && b.isPopular) return 1;

@@ -1,4 +1,4 @@
-import { ProductsDataSource } from '../datasources/ProductsDataSource.js';
+import { ProductsDataSource } from "../datasources/ProductsDataSource.js";
 
 /**
  * Products Repository
@@ -17,8 +17,8 @@ export class ProductsRepository {
     try {
       return await this.dataSource.getAllProducts();
     } catch (error) {
-      console.error('Error fetching products:', error);
-      throw new Error('Failed to fetch products');
+      console.error("Error fetching products:", error);
+      throw new Error("Failed to fetch products");
     }
   }
 
@@ -30,12 +30,12 @@ export class ProductsRepository {
   async getProductById(id) {
     try {
       if (!id) {
-        throw new Error('Product ID is required');
+        throw new Error("Product ID is required");
       }
       return await this.dataSource.getProductById(id);
     } catch (error) {
-      console.error('Error fetching product by ID:', error);
-      throw new Error('Failed to fetch product');
+      console.error("Error fetching product by ID:", error);
+      throw new Error("Failed to fetch product");
     }
   }
 
@@ -47,12 +47,12 @@ export class ProductsRepository {
   async getProductsByCategory(category) {
     try {
       if (!category) {
-        throw new Error('Category is required');
+        throw new Error("Category is required");
       }
       return await this.dataSource.getProductsByCategory(category);
     } catch (error) {
-      console.error('Error fetching products by category:', error);
-      throw new Error('Failed to fetch products by category');
+      console.error("Error fetching products by category:", error);
+      throw new Error("Failed to fetch products by category");
     }
   }
 
@@ -65,8 +65,8 @@ export class ProductsRepository {
     try {
       return await this.dataSource.searchProducts(searchTerm);
     } catch (error) {
-      console.error('Error searching products:', error);
-      throw new Error('Failed to search products');
+      console.error("Error searching products:", error);
+      throw new Error("Failed to search products");
     }
   }
 
@@ -78,8 +78,8 @@ export class ProductsRepository {
     try {
       return await this.dataSource.getFeaturedProducts();
     } catch (error) {
-      console.error('Error fetching featured products:', error);
-      throw new Error('Failed to fetch featured products');
+      console.error("Error fetching featured products:", error);
+      throw new Error("Failed to fetch featured products");
     }
   }
 
@@ -91,8 +91,8 @@ export class ProductsRepository {
     try {
       return await this.dataSource.getPopularProducts();
     } catch (error) {
-      console.error('Error fetching popular products:', error);
-      throw new Error('Failed to fetch popular products');
+      console.error("Error fetching popular products:", error);
+      throw new Error("Failed to fetch popular products");
     }
   }
 
@@ -105,8 +105,8 @@ export class ProductsRepository {
     try {
       return await this.dataSource.getProductsWithFilters(filters);
     } catch (error) {
-      console.error('Error fetching filtered products:', error);
-      throw new Error('Failed to fetch filtered products');
+      console.error("Error fetching filtered products:", error);
+      throw new Error("Failed to fetch filtered products");
     }
   }
 
@@ -118,8 +118,8 @@ export class ProductsRepository {
     try {
       return await this.dataSource.getCategories();
     } catch (error) {
-      console.error('Error fetching categories:', error);
-      throw new Error('Failed to fetch categories');
+      console.error("Error fetching categories:", error);
+      throw new Error("Failed to fetch categories");
     }
   }
 
@@ -135,21 +135,23 @@ export class ProductsRepository {
       return {
         totalProducts: products.length,
         totalCategories: categories.length,
-        featuredCount: products.filter(p => p.isFeatured).length,
-        popularCount: products.filter(p => p.isPopular).length,
-        averagePrice: products.reduce((sum, p) => sum + p.price, 0) / products.length,
+        featuredCount: products.filter((p) => p.isFeatured).length,
+        popularCount: products.filter((p) => p.isPopular).length,
+        averagePrice:
+          products.reduce((sum, p) => sum + p.price, 0) / products.length,
         priceRange: {
-          min: Math.min(...products.map(p => p.price)),
-          max: Math.max(...products.map(p => p.price))
+          min: Math.min(...products.map((p) => p.price)),
+          max: Math.max(...products.map((p) => p.price)),
         },
-        categoryBreakdown: categories.map(category => ({
+        categoryBreakdown: categories.map((category) => ({
           ...category,
-          productCount: products.filter(p => p.category === category.id).length
-        }))
+          productCount: products.filter((p) => p.category === category.id)
+            .length,
+        })),
       };
     } catch (error) {
-      console.error('Error fetching product statistics:', error);
-      throw new Error('Failed to fetch product statistics');
+      console.error("Error fetching product statistics:", error);
+      throw new Error("Failed to fetch product statistics");
     }
   }
 }

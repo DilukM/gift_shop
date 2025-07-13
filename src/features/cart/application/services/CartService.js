@@ -4,8 +4,8 @@ import {
   UpdateCartItemQuantityUseCase,
   GetCartUseCase,
   ClearCartUseCase,
-  ValidateCartUseCase
-} from '../../domain/usecases/CartUseCases.js';
+  ValidateCartUseCase,
+} from "../../domain/usecases/CartUseCases.js";
 
 /**
  * Cart Service
@@ -19,7 +19,7 @@ export class CartService {
     this.getCartUseCase = new GetCartUseCase();
     this.clearCartUseCase = new ClearCartUseCase();
     this.validateCartUseCase = new ValidateCartUseCase();
-    
+
     // Event listeners for cart changes
     this.cartChangeListeners = [];
   }
@@ -33,14 +33,18 @@ export class CartService {
   async addItem(product, quantity = 1) {
     try {
       const result = await this.addItemToCartUseCase.execute(product, quantity);
-      
+
       if (result.success) {
-        this.notifyCartChange('item_added', { product, quantity, cart: result.cart });
+        this.notifyCartChange("item_added", {
+          product,
+          quantity,
+          cart: result.cart,
+        });
       }
-      
+
       return result;
     } catch (error) {
-      console.error('CartService.addItem error:', error);
+      console.error("CartService.addItem error:", error);
       throw error;
     }
   }
@@ -53,14 +57,14 @@ export class CartService {
   async removeItem(productId) {
     try {
       const result = await this.removeItemFromCartUseCase.execute(productId);
-      
+
       if (result.success) {
-        this.notifyCartChange('item_removed', { productId, cart: result.cart });
+        this.notifyCartChange("item_removed", { productId, cart: result.cart });
       }
-      
+
       return result;
     } catch (error) {
-      console.error('CartService.removeItem error:', error);
+      console.error("CartService.removeItem error:", error);
       throw error;
     }
   }
@@ -73,15 +77,22 @@ export class CartService {
    */
   async updateQuantity(productId, quantity) {
     try {
-      const result = await this.updateCartItemQuantityUseCase.execute(productId, quantity);
-      
+      const result = await this.updateCartItemQuantityUseCase.execute(
+        productId,
+        quantity
+      );
+
       if (result.success) {
-        this.notifyCartChange('quantity_updated', { productId, quantity, cart: result.cart });
+        this.notifyCartChange("quantity_updated", {
+          productId,
+          quantity,
+          cart: result.cart,
+        });
       }
-      
+
       return result;
     } catch (error) {
-      console.error('CartService.updateQuantity error:', error);
+      console.error("CartService.updateQuantity error:", error);
       throw error;
     }
   }
@@ -94,7 +105,7 @@ export class CartService {
     try {
       return await this.getCartUseCase.execute();
     } catch (error) {
-      console.error('CartService.getCart error:', error);
+      console.error("CartService.getCart error:", error);
       throw error;
     }
   }
@@ -106,14 +117,14 @@ export class CartService {
   async clearCart() {
     try {
       const result = await this.clearCartUseCase.execute();
-      
+
       if (result.success) {
-        this.notifyCartChange('cart_cleared', { cart: null });
+        this.notifyCartChange("cart_cleared", { cart: null });
       }
-      
+
       return result;
     } catch (error) {
-      console.error('CartService.clearCart error:', error);
+      console.error("CartService.clearCart error:", error);
       throw error;
     }
   }
@@ -126,7 +137,7 @@ export class CartService {
     try {
       return await this.validateCartUseCase.execute();
     } catch (error) {
-      console.error('CartService.validateCart error:', error);
+      console.error("CartService.validateCart error:", error);
       throw error;
     }
   }
@@ -140,7 +151,7 @@ export class CartService {
       const { summary } = await this.getCart();
       return summary;
     } catch (error) {
-      console.error('CartService.getCartSummary error:', error);
+      console.error("CartService.getCartSummary error:", error);
       throw error;
     }
   }
@@ -153,9 +164,9 @@ export class CartService {
   async isProductInCart(productId) {
     try {
       const { cart } = await this.getCart();
-      return cart.items.some(item => item.id === productId);
+      return cart.items.some((item) => item.id === productId);
     } catch (error) {
-      console.error('CartService.isProductInCart error:', error);
+      console.error("CartService.isProductInCart error:", error);
       return false;
     }
   }
@@ -168,10 +179,10 @@ export class CartService {
   async getItemQuantity(productId) {
     try {
       const { cart } = await this.getCart();
-      const item = cart.items.find(item => item.id === productId);
+      const item = cart.items.find((item) => item.id === productId);
       return item ? item.quantity : 0;
     } catch (error) {
-      console.error('CartService.getItemQuantity error:', error);
+      console.error("CartService.getItemQuantity error:", error);
       return 0;
     }
   }
@@ -188,7 +199,7 @@ export class CartService {
       if (!validation.isValid) {
         return {
           success: false,
-          errors: validation.errors
+          errors: validation.errors,
         };
       }
 
@@ -197,30 +208,32 @@ export class CartService {
       if (!checkoutValidation.isValid) {
         return {
           success: false,
-          errors: checkoutValidation.errors
+          errors: checkoutValidation.errors,
         };
       }
 
       // In a real app, this would integrate with payment processor
       // For now, simulate successful checkout
       const orderId = this.generateOrderId();
-      
+
       // Clear cart after successful checkout
       await this.clearCart();
-      
-      this.notifyCartChange('checkout_completed', { orderId, checkoutData });
+
+      this.notifyCartChange("checkout_completed", { orderId, checkoutData });
 
       return {
         success: true,
         orderId,
-        message: 'Order placed successfully!',
-        estimatedDelivery: this.calculateEstimatedDelivery()
+        message: "Order placed successfully!",
+        estimatedDelivery: this.calculateEstimatedDelivery(),
       };
     } catch (error) {
-      console.error('CartService.processCheckout error:', error);
+      console.error("CartService.processCheckout error:", error);
       return {
         success: false,
-        errors: ['An error occurred while processing your order. Please try again.']
+        errors: [
+          "An error occurred while processing your order. Please try again.",
+        ],
       };
     }
   }
@@ -234,22 +247,22 @@ export class CartService {
   validateCheckoutData(data) {
     const errors = [];
 
-    if (!data.firstName?.trim()) errors.push('First name is required');
-    if (!data.lastName?.trim()) errors.push('Last name is required');
-    if (!data.email?.trim()) errors.push('Email is required');
-    if (!data.phone?.trim()) errors.push('Phone number is required');
-    if (!data.address?.trim()) errors.push('Address is required');
-    if (!data.city?.trim()) errors.push('City is required');
-    if (!data.zipCode?.trim()) errors.push('ZIP code is required');
+    if (!data.firstName?.trim()) errors.push("First name is required");
+    if (!data.lastName?.trim()) errors.push("Last name is required");
+    if (!data.email?.trim()) errors.push("Email is required");
+    if (!data.phone?.trim()) errors.push("Phone number is required");
+    if (!data.address?.trim()) errors.push("Address is required");
+    if (!data.city?.trim()) errors.push("City is required");
+    if (!data.zipCode?.trim()) errors.push("ZIP code is required");
 
     // Email validation
     if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      errors.push('Please enter a valid email address');
+      errors.push("Please enter a valid email address");
     }
 
     return {
       isValid: errors.length === 0,
-      errors
+      errors,
     };
   }
 
@@ -259,7 +272,7 @@ export class CartService {
    * @returns {string} Order ID
    */
   generateOrderId() {
-    return 'GB-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+    return "GB-" + Date.now() + "-" + Math.random().toString(36).substr(2, 9);
   }
 
   /**
@@ -286,7 +299,9 @@ export class CartService {
    * @param {Function} listener Callback function
    */
   removeCartChangeListener(listener) {
-    this.cartChangeListeners = this.cartChangeListeners.filter(l => l !== listener);
+    this.cartChangeListeners = this.cartChangeListeners.filter(
+      (l) => l !== listener
+    );
   }
 
   /**
@@ -296,11 +311,11 @@ export class CartService {
    * @param {Object} data Event data
    */
   notifyCartChange(action, data) {
-    this.cartChangeListeners.forEach(listener => {
+    this.cartChangeListeners.forEach((listener) => {
       try {
         listener({ action, ...data });
       } catch (error) {
-        console.error('Error in cart change listener:', error);
+        console.error("Error in cart change listener:", error);
       }
     });
   }
