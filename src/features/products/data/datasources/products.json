@@ -1,0 +1,248 @@
+{
+  "products": [
+    {
+      "id": "gb-001",
+      "name": "Graduation Pride Teddy Bear",
+      "category": "teddy-bears",
+      "price": 35.99,
+      "originalPrice": 45.99,
+      "description": "Celebrate academic achievements with this adorable graduation teddy bear wearing a traditional cap and gown. Perfect for commemorating this special milestone.",
+      "image": "/api/placeholder/400/400",
+      "images": [
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400"
+      ],
+      "features": [
+        "Premium plush material",
+        "Traditional graduation cap and gown",
+        "Embroidered school year option",
+        "Hypoallergenic stuffing"
+      ],
+      "inStock": true,
+      "stockCount": 25,
+      "rating": 4.8,
+      "reviews": 124,
+      "isPopular": true,
+      "isFeatured": true,
+      "tags": ["graduation", "teddy bear", "commemorative", "gift"]
+    },
+    {
+      "id": "gb-002",
+      "name": "Scholar's Success Bear",
+      "category": "teddy-bears",
+      "price": 42.99,
+      "description": "A distinguished teddy bear perfect for celebrating academic excellence. Comes with a personalized diploma scroll.",
+      "image": "/api/placeholder/400/400",
+      "images": ["/api/placeholder/400/400", "/api/placeholder/400/400"],
+      "features": [
+        "Soft velvet graduation gown",
+        "Personalized diploma scroll",
+        "Academic honor cord",
+        "Gift box included"
+      ],
+      "inStock": true,
+      "stockCount": 18,
+      "rating": 4.9,
+      "reviews": 89,
+      "isPopular": true,
+      "tags": ["graduation", "personalized", "diploma", "luxury"]
+    },
+    {
+      "id": "gb-003",
+      "name": "Little Graduate Bear",
+      "category": "teddy-bears",
+      "price": 28.99,
+      "description": "Adorable mini graduation bear perfect for younger graduates or as a desk companion. Compact size with full graduation attire.",
+      "image": "/api/placeholder/400/400",
+      "images": ["/api/placeholder/400/400", "/api/placeholder/400/400"],
+      "features": [
+        "Compact 8-inch size",
+        "Miniature cap and gown",
+        "Perfect desk accessory",
+        "Affordable option"
+      ],
+      "inStock": true,
+      "stockCount": 45,
+      "rating": 4.6,
+      "reviews": 156,
+      "isPopular": false,
+      "tags": ["graduation", "mini", "affordable", "desk"]
+    },
+    {
+      "id": "fb-001",
+      "name": "Congratulations Rose Bouquet",
+      "category": "bouquets",
+      "price": 75.99,
+      "originalPrice": 89.99,
+      "description": "Elegant arrangement of premium red roses with graduation-themed accents. Perfect for celebrating academic achievements with style.",
+      "image": "/api/placeholder/400/400",
+      "images": [
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400"
+      ],
+      "features": [
+        "12 premium red roses",
+        "Graduation ribbon accents",
+        "Professional arrangement",
+        "Fresh delivery guarantee"
+      ],
+      "inStock": true,
+      "stockCount": 15,
+      "rating": 4.9,
+      "reviews": 78,
+      "isPopular": true,
+      "isFeatured": true,
+      "tags": ["roses", "graduation", "elegant", "fresh"]
+    },
+    {
+      "id": "fb-002",
+      "name": "Scholar's Mixed Bouquet",
+      "category": "bouquets",
+      "price": 65.99,
+      "description": "Beautiful mixed flower arrangement featuring roses, lilies, and seasonal blooms in graduation colors.",
+      "image": "/api/placeholder/400/400",
+      "images": ["/api/placeholder/400/400", "/api/placeholder/400/400"],
+      "features": [
+        "Mixed seasonal flowers",
+        "Graduation color scheme",
+        "Premium vase included",
+        "Same-day delivery available"
+      ],
+      "inStock": true,
+      "stockCount": 22,
+      "rating": 4.7,
+      "reviews": 92,
+      "isPopular": true,
+      "tags": ["mixed flowers", "seasonal", "vase", "delivery"]
+    },
+    {
+      "id": "fb-003",
+      "name": "Achievement Sunflower Bouquet",
+      "category": "bouquets",
+      "price": 55.99,
+      "description": "Bright and cheerful sunflower arrangement symbolizing growth and achievement. Perfect for celebrating new beginnings.",
+      "image": "/api/placeholder/400/400",
+      "images": ["/api/placeholder/400/400", "/api/placeholder/400/400"],
+      "features": [
+        "Fresh sunflowers",
+        "Symbol of achievement",
+        "Rustic wrapping",
+        "Long-lasting blooms"
+      ],
+      "inStock": true,
+      "stockCount": 30,
+      "rating": 4.8,
+      "reviews": 64,
+      "isPopular": false,
+      "tags": ["sunflowers", "cheerful", "achievement", "rustic"]
+    },
+    {
+      "id": "combo-001",
+      "name": "Graduate's Special Combo",
+      "category": "combo",
+      "price": 95.99,
+      "originalPrice": 115.99,
+      "description": "Perfect graduation gift combining our popular graduation bear with a beautiful rose bouquet. Save when you buy together!",
+      "image": "/api/placeholder/400/400",
+      "images": ["/api/placeholder/400/400", "/api/placeholder/400/400"],
+      "features": [
+        "Graduation Pride Teddy Bear",
+        "6 premium roses",
+        "Gift wrapping included",
+        "Special combo pricing"
+      ],
+      "inStock": true,
+      "stockCount": 12,
+      "rating": 4.9,
+      "reviews": 45,
+      "isPopular": true,
+      "isFeatured": true,
+      "tags": ["combo", "bear", "roses", "savings"]
+    },
+    {
+      "id": "fb-004",
+      "name": "Luxury White Lily Bouquet",
+      "category": "bouquets",
+      "price": 85.99,
+      "description": "Sophisticated arrangement of premium white lilies representing new beginnings and success.",
+      "image": "/api/placeholder/400/400",
+      "images": ["/api/placeholder/400/400"],
+      "features": [
+        "Premium white lilies",
+        "Sophisticated design",
+        "Luxury packaging",
+        "Fragrant blooms"
+      ],
+      "inStock": true,
+      "stockCount": 8,
+      "rating": 5.0,
+      "reviews": 23,
+      "isPopular": false,
+      "tags": ["lilies", "luxury", "white", "sophisticated"]
+    },
+    {
+      "id": "gb-004",
+      "name": "Custom Graduation Bear",
+      "category": "teddy-bears",
+      "price": 55.99,
+      "description": "Personalized graduation teddy bear with custom embroidery of graduate's name and graduation year.",
+      "image": "/api/placeholder/400/400",
+      "images": ["/api/placeholder/400/400", "/api/placeholder/400/400"],
+      "features": [
+        "Custom name embroidery",
+        "Graduation year option",
+        "Premium materials",
+        "Gift box packaging"
+      ],
+      "inStock": true,
+      "stockCount": 20,
+      "rating": 4.8,
+      "reviews": 67,
+      "isPopular": false,
+      "tags": ["custom", "personalized", "embroidery", "premium"]
+    },
+    {
+      "id": "fb-005",
+      "name": "Graduation Garden Bouquet",
+      "category": "bouquets",
+      "price": 69.99,
+      "description": "Charming garden-style bouquet with a mix of colorful seasonal flowers perfect for outdoor graduation ceremonies.",
+      "image": "/api/placeholder/400/400",
+      "images": ["/api/placeholder/400/400", "/api/placeholder/400/400"],
+      "features": [
+        "Garden-style arrangement",
+        "Colorful seasonal mix",
+        "Perfect for outdoors",
+        "Natural wrapping"
+      ],
+      "inStock": true,
+      "stockCount": 16,
+      "rating": 4.6,
+      "reviews": 38,
+      "isPopular": false,
+      "tags": ["garden", "colorful", "seasonal", "outdoor"]
+    }
+  ],
+  "categories": [
+    {
+      "id": "teddy-bears",
+      "name": "Graduation Teddy Bears",
+      "description": "Adorable teddy bears dressed for graduation success",
+      "image": "/api/placeholder/300/200"
+    },
+    {
+      "id": "bouquets",
+      "name": "Flower Bouquets",
+      "description": "Beautiful fresh flower arrangements for celebrations",
+      "image": "/api/placeholder/300/200"
+    },
+    {
+      "id": "combo",
+      "name": "Gift Combos",
+      "description": "Special combinations of bears and flowers",
+      "image": "/api/placeholder/300/200"
+    }
+  ]
+}
